@@ -101,6 +101,19 @@ $ ln -s hadoop-2.6.4 hadoop
   </property>
 </configuration>
 ```
+* hdfs-site.xml
+```
+<configuration>
+  <property>
+    <name>dfs.namenode.name.dir</name>
+    <value>/data/hadoop/name/</value>
+  </property>
+  <property>
+    <name>dfs.datanode.data.dir</name>
+    <value>/data/hadoop/data/</value>
+  </property>
+</configuration>
+```
 * mapred-site.xml
 ```
 <configuration>
