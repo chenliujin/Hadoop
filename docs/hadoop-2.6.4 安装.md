@@ -89,9 +89,18 @@ export JAVA_HOME=/usr
 ```
 $ cd /opt/
 $ ln -s hadoop-2.6.4 hadoop
+$ chown hadoop:hadoop -R hadoop-2.6.4
 ```
 
 ### 4.1 配置
+* hadoop-env.sh
+```
+export JAVA_HOME=/usr
+```
+* yarn-env.sh
+```
+export JAVA_HOME=/usr
+```
 * core-site.xml
 ```
 <configuration>
@@ -127,6 +136,20 @@ $ ln -s hadoop-2.6.4 hadoop
 ```
 slave01
 slave02
+```
+
+### 4.2 格式化 namenode
+```
+$ $HADOOP_HOME/bin/hdfs namenode -format
+```
+
+### 4.3 启动 dfs
+```
+$ $HADOOP_HOME/sbin/start-dfs.sh
+```
+### 4.4 启动 yarn
+```
+$ $HADOOP_HOME/sbin/start-yarn.sh
 ```
 
 ## 参考文献
