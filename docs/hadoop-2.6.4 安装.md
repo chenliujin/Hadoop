@@ -94,6 +94,15 @@ $ ln -s hadoop-2.6.4 hadoop
 ### 4.1 配置
 * core-site.xml
 ```
+<configuration>
+  <property>
+    <name>fs.defaultFS</name>
+    <value>hdfs://master:9000</value>
+  </property>
+</configuration>
+```
+* mapred-site.xml
+```
 ```
 * slaves
 ```
