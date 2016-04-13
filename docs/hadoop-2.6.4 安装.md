@@ -103,6 +103,12 @@ $ ln -s hadoop-2.6.4 hadoop
 ```
 * mapred-site.xml
 ```
+<configuration>
+  <property>
+    <name>mapreduce.framework.name</name>
+    <value>yarn</value>
+  </property>
+</configuration>
 ```
 * slaves
 ```
