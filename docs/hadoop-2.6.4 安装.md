@@ -72,15 +72,24 @@ $ rsync ~/.ssh/authorized_keys slave01:.ssh/
 $ rsync ~/.ssh/authorized_keys slave02:.ssh/
 ```
 
-#### 2.4.5 验证
+#### 2.4.5 相互之间验证，没有提示信息登录成功才可以
 ```
+# master
 $ ssh slave01
 $ ssh slave02
+
+# slave01
+$ ssh master
+$ ssh slave02
+
+# slave02
+$ ssh master
+$ ssh slave01
 ```
 
 ## 3. JAVA
 ```
-$ yum install java
+$ yum install java java-1.8.0-openjdk-devel
 $ vim /etc/profile
 export JAVA_HOME=/usr
 ```
@@ -101,7 +110,8 @@ export JAVA_HOME=/usr
 ```
 export JAVA_HOME=/usr
 ```
-* core-site.xml
+* core-site.xml<br />
+[core-site.xml 默认值](http://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-common/core-default.xml)
 ```
 <configuration>
   <property>
@@ -110,20 +120,22 @@ export JAVA_HOME=/usr
   </property>
 </configuration>
 ```
-* hdfs-site.xml
+* hdfs-site.xml<br />
+[hdfs-site.xml 默认值](http://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-hdfs/hdfs-default.xml)
 ```
 <configuration>
   <property>
     <name>dfs.namenode.name.dir</name>
-    <value>/data/hadoop/name/</value>
+    <value>/data/hadoop/dfs/name/</value>
   </property>
   <property>
     <name>dfs.datanode.data.dir</name>
-    <value>/data/hadoop/data/</value>
+    <value>/data/hadoop/dfs/data/</value>
   </property>
 </configuration>
 ```
-* mapred-site.xml
+* mapred-site.xml<br />
+[mapred-site.xml 默认值](http://hadoop.apache.org/docs/r2.6.0/hadoop-mapreduce-client/hadoop-mapreduce-client-core/mapred-default.xml)
 ```
 <configuration>
   <property>
@@ -132,25 +144,105 @@ export JAVA_HOME=/usr
   </property>
 </configuration>
 ```
+* yarn-site.xml<br />
+[yarn-site.xml 默认值](http://hadoop.apache.org/docs/r2.6.0/hadoop-yarn/hadoop-yarn-common/yarn-default.xml)
+```
+<configuration>
+  <property>
+    <name>yarn.nodemanager.aux-services</name>
+    <value>mapreduce_shuffle</value>
+  </property>
+</configuration>
+```
+* masters （没有则创建）
+```
+master
+```
 * slaves
 ```
 slave01
 slave02
 ```
 
-### 4.2 格式化 namenode
+### 4.2 同步 hadoop 到 slave
+```
+$ rsync /opt/hadoop slave01:/opt/
+$ rsync /opt/hadoop slave02:/opt/
+```
+
+### 4.3 关闭防火墙或放行相应端口
+```
+$ systemctl stop firewalld.service
+```
+
+### 4.4 格式化 namenode
 ```
 $ $HADOOP_HOME/bin/hdfs namenode -format
 ```
 
-### 4.3 启动 dfs
+### 4.5 启动 dfs
 ```
 $ $HADOOP_HOME/sbin/start-dfs.sh
 ```
-### 4.4 启动 yarn
+### 4.6 启动 yarn
 ```
 $ $HADOOP_HOME/sbin/start-yarn.sh
 ```
 
+### 4.7 验证
+* hdfs 使用情况
+```
+$ /opt/hadoop/bin/hdfs dfsadmin -report
+Configured Capacity: 107321753600 (99.95 GB)
+Present Capacity: 103961427968 (96.82 GB)
+DFS Remaining: 103961415680 (96.82 GB)
+DFS Used: 12288 (12 KB)
+DFS Used%: 0.00%
+Under replicated blocks: 0
+Blocks with corrupt replicas: 0
+Missing blocks: 0
+
+-------------------------------------------------
+Live datanodes (2):
+
+Name: 192.168.85.132:50010 (slave01)
+Hostname: slave01
+Decommission Status : Normal
+Configured Capacity: 53660876800 (49.98 GB)
+DFS Used: 8192 (8 KB)
+Non DFS Used: 1681076224 (1.57 GB)
+DFS Remaining: 51979792384 (48.41 GB)
+DFS Used%: 0.00%
+DFS Remaining%: 96.87%
+Configured Cache Capacity: 0 (0 B)
+Cache Used: 0 (0 B)
+Cache Remaining: 0 (0 B)
+Cache Used%: 100.00%
+Cache Remaining%: 0.00%
+Xceivers: 1
+Last contact: Fri Apr 15 23:32:35 EDT 2016
+
+
+Name: 192.168.85.133:50010 (slave02)
+Hostname: slave02
+Decommission Status : Normal
+Configured Capacity: 53660876800 (49.98 GB)
+DFS Used: 4096 (4 KB)
+Non DFS Used: 1679249408 (1.56 GB)
+DFS Remaining: 51981623296 (48.41 GB)
+DFS Used%: 0.00%
+DFS Remaining%: 96.87%
+Configured Cache Capacity: 0 (0 B)
+Cache Used: 0 (0 B)
+Cache Remaining: 0 (0 B)
+Cache Used%: 100.00%
+Cache Remaining%: 0.00%
+Xceivers: 1
+Last contact: Fri Apr 15 23:32:36 EDT 2016
+```
+* Hadoop UI：http://master:50070
+* Yarn UI：http://master:8088
+
 ## 参考文献
 * [hadoop 2.6全分布安装](http://www.cnblogs.com/yjmyzz/p/4280069.html)
+* [CentOS 7.0 hadoop 2.6 安装与配置](http://www.jianshu.com/p/859e10af9796)
