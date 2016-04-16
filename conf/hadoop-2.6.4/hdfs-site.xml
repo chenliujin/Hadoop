@@ -7,4 +7,8 @@
     <name>dfs.datanode.data.dir</name>
     <value>file:///data/hadoop/dfs/data</value>
   </property>
+  <property>
+    <name>dfs.replication</name>
+    <value>2</value>
+  </property>  
 </configuration>
