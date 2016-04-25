@@ -7,6 +7,11 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
+/**
+ * @site http://www.chenliujin.com
+ * @author chenliujin <liujin.chen@qq.com>
+ * @since 2016-04-25
+ */
 public class MaxTemperatureMapper extends Mapper<LongWritable, Text, Text, IntWritable>
 {
 	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException

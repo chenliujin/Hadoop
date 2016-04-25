@@ -11,6 +11,11 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
+/**
+ * @site http://www.chenliujin.com
+ * @author chenliujin <liujin.chen@qq.com>
+ * @since 2016-04-25
+ */
 public class MaxTemperatureDriver extends Configured implements Tool
 {
 	public int run( String[] args ) throws Exception

@@ -6,6 +6,11 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
+/**
+ * @site http://www.chenliujin.com
+ * @author chenliujin <liujin.chen@qq.com>
+ * @since 2016-04-25
+ */
 public class MaxTemperatureReducer extends Reducer<Text, IntWritable, Text, IntWritable>
 {
 	public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException 
