@@ -14,9 +14,12 @@ $ mvn archetype:generate -DarchetypeGroupId=org.apache.maven.archetypes -DgroupI
 </dependencies>
 ```
 
-## 伪分布式测试
+## WordCount
 ```
 $ /opt/hadoop/bin/hadoop jar /opt/hadoop/share/hadoop/mapreduce/sources/hadoop-mapreduce-examples-2.6.4-sources.jar org.apache.hadoop.examples.WordCount /data/wordcount /output/wordcount
+
+
+/opt/hadoop/bin/hadoop jar /root/Hadoop/examples/access_log/target/temperature-1.0-SNAPSHOT.jar hdfs://master:9000/input hdfs://master:9000/output
 ```
 
 
@@ -24,3 +27,4 @@ $ /opt/hadoop/bin/hadoop jar /opt/hadoop/share/hadoop/mapreduce/sources/hadoop-m
 
 ## 参考文献
 * [用Maven构建Hadoop项目](http://blog.fens.me/hadoop-maven-eclipse/)
+* [在hadoop2.3下运行WordCount程序](http://blog.itpub.net/21819287/viewspace-1119313/)
