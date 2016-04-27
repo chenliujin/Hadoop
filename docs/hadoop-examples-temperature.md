@@ -1,3 +1,8 @@
+## 版权
+* 作者：<a href="http://www.chenliujin.com">陈柳锦</a>
+* 主页：<a href="http://www.chenliujin.com">http://www.chenliujin.com</a>
+* 邮箱：liujin.chen@qq.com
+
 我们以简化版的气温统计为例，演示如何开发一个MapReduce程序。
 
 ## mvn 构建一个新项目
