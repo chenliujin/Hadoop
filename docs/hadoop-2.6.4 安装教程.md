@@ -101,7 +101,14 @@ $ ln -s hadoop-2.6.4 hadoop
 $ chown hadoop:hadoop -R hadoop-2.6.4
 ```
 
-### 4.1 配置
+### 4.1 环境变量
+```
+$ vim /etc/profile
+export HADOOP_HOME=/opt/hadoop
+export PATH=$PATH:$HADOOP_HOME/bin
+```
+
+### 4.2 配置
 * hadoop-env.sh
 ```
 export JAVA_HOME=/usr
@@ -188,32 +195,32 @@ slave01
 slave02
 ```
 
-### 4.2 同步 hadoop 到 slave
+### 4.3 同步 hadoop 到 slave
 ```
 $ rsync /opt/hadoop slave01:/opt/
 $ rsync /opt/hadoop slave02:/opt/
 ```
 
-### 4.3 关闭防火墙或放行相应端口
+### 4.4 关闭防火墙或放行相应端口
 ```
 $ systemctl stop firewalld.service
 ```
 
-### 4.4 格式化 namenode
+### 4.5 格式化 namenode
 ```
 $ $HADOOP_HOME/bin/hdfs namenode -format
 ```
 
-### 4.5 启动 dfs
+### 4.6 启动 dfs
 ```
 $ $HADOOP_HOME/sbin/start-dfs.sh
 ```
-### 4.6 启动 yarn
+### 4.7 启动 yarn
 ```
 $ $HADOOP_HOME/sbin/start-yarn.sh
 ```
 
-### 4.7 验证
+### 4.8 验证
 * hdfs 使用情况
 ```
 $ /opt/hadoop/bin/hdfs dfsadmin -report

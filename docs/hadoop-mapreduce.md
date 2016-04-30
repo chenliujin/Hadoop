@@ -1,11 +1,9 @@
-* conf
-* job
-* map
-* reduce
-* input
-* output
+## 计数
 
-## map
-* 行
-* 行对应的内容
-* context
+## 求和
+
+## 数据去重
+
+## 排序
+
+## TopK：对源数据中所有数据进行排序，取出前K个数据，就是TopK。
