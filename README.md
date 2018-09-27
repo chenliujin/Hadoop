@@ -18,3 +18,12 @@ hdfs fsck /
 先自检，如果自检不通过，加上 `-delete` 参数。
 
 注意: 这种方式会出现数据丢失，损坏的block会被删掉
+
+## Ambari 异常
+
+### HBase file layout needs to be upgraded. You have version null and I want version 8
+
+```
+# su hdfs
+# hdfs dfs -rm -r /apps/hbase
+```
