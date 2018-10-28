@@ -1,5 +1,9 @@
 # hadoop Safe mode is ON
 
+```
+hdfs dfsadmin -safemode <enter | leave | get | wait>
+```
+
 由于系统断电，内存不足等原因导致dataNode丢失超过设置的丢失百分比，系统自动进入安全模式
 
 解决办法(Solution)*
